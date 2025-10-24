@@ -1,0 +1,58 @@
+{
+  "info": {
+    "name": "Pixel Coworking - Reservations",
+    "_postman_id": "e9f2b9f1-0000-4000-8000-000000000000",
+    "description": "Colección para SpacesService (8081) y BookingService (8082)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Spaces - List",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8081/api/spaces"
+      }
+    },
+    {
+      "name": "Spaces - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "http://localhost:8081/api/spaces",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\": \"Sala Reuniones\", \"capacity\": 6, \"isPrivate\": true}"
+        }
+      }
+    },
+    {
+      "name": "Bookings - List",
+      "request": {
+        "method": "GET",
+        "url": "http://localhost:8082/api/bookings"
+      }
+    },
+    {
+      "name": "Bookings - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "http://localhost:8082/api/bookings",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"spaceId\": 1, \"userName\": \"katia\", \"start\": \"2025-10-24T10:30:00\", \"end\": \"2025-10-24T12:30:00\"}"
+        }
+      }
+    }
+  ]
+}

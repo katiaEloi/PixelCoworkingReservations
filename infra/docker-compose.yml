@@ -1,0 +1,33 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Your_strong_password123!
+    ports:
+      - "1433:1433"
+    # OJO: quitamos healthcheck para no depender de sqlcmd
+
+  spacesservice:
+    build:
+      context: ../src/SpacesService
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8081
+      - ConnectionStrings__Default=Server=sqlserver;Database=SpacesDb;User Id=sa;Password=Your_strong_password123!;TrustServerCertificate=True;
+    ports:
+      - "8081:8081"
+    depends_on:
+      - sqlserver   # sin condición de healthy
+
+  bookingservice:
+    build:
+      context: ../src/BookingService
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:8082
+      - ConnectionStrings__Default=Server=sqlserver;Database=BookingsDb;User Id=sa;Password=Your_strong_password123!;TrustServerCertificate=True;
+    ports:
+      - "8082:8082"
+    depends_on:
+      - sqlserver   # sin condición de healthy
