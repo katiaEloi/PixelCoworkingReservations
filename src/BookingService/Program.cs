@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using BookingService.Models;
+using BookingService.Data;
+using BookingService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,15 @@ var conn = builder.Configuration.GetConnectionString("Default")
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(conn));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddHttpClient("SpacesService", client =>
+{
+    client.BaseAddress = new Uri("http://spaceservice:8081"); // nombre del contenedor interno
+});
+
+builder.Services.AddControllers();
+builder.Services.AddScoped<SpacesClient>();
 
 var app = builder.Build();
 
@@ -38,6 +50,7 @@ app.MapPost("/api/bookings", async (Booking b, AppDbContext db) =>
     return Results.Created($"/api/bookings/{b.Id}", b);
 });
 
+
 app.MapPut("/api/bookings/{id:int}", async (int id, Booking input, AppDbContext db) =>
 {
     var b = await db.Bookings.FindAsync(id);
@@ -61,17 +74,4 @@ app.MapDelete("/api/bookings/{id:int}", async (int id, AppDbContext db) =>
 
 app.Run();
 
-class AppDbContext : DbContext
-{
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
-    public DbSet<Booking> Bookings => Set<Booking>();
-}
 
-class Booking
-{
-    public int Id { get; set; }
-    public int SpaceId { get; set; }
-    public string UserName { get; set; } = string.Empty;
-    public DateTime Start { get; set; }
-    public DateTime End { get; set; }
-}

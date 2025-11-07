@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using SpacesService.Models;
+using SpacesService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,11 +11,13 @@ var conn = builder.Configuration.GetConnectionString("Default")
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(conn));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
@@ -56,18 +60,7 @@ app.MapDelete("/api/spaces/{id:int}", async (int id, AppDbContext db) =>
     return Results.NoContent();
 });
 
+
 app.Run();
 
-class AppDbContext : DbContext
-{
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) {}
-    public DbSet<Space> Spaces => Set<Space>();
-}
 
-class Space
-{
-    public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public int Capacity { get; set; }
-    public bool IsPrivate { get; set; }
-}
