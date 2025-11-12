@@ -6,7 +6,7 @@ services:
     container_name: pixel-sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=Your_strong_password123!
+      - SA_PASSWORD=${SA_PASSWORD}
     ports:
       - "1433:1433"
     healthcheck:
@@ -24,7 +24,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8081
-      - ConnectionStrings__Default=Server=sqlserver;Database=SpacesDb;User Id=sa;Password=Your_strong_password123!;TrustServerCertificate=True;
+      - ConnectionStrings__Default=${SPACES_CONN}
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "8081:8081"
@@ -41,7 +41,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_URLS=http://+:8082
-      - ConnectionStrings__Default=Server=sqlserver;Database=BookingsDb;User Id=sa;Password=Your_strong_password123!;TrustServerCertificate=True;
+      - ConnectionStrings__Default=${BOOKINGS_CONN}
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "8082:8082"
