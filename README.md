@@ -70,5 +70,3 @@ dotnet ef database update -p src/BookingService -s src/BookingService
 - Azure SQL o SQL en contenedor administrado.
 - Azure Blob Storage (si necesitas ficheros).
 - Azure Functions para tareas asíncronas (notificaciones).
-
-¡Éxitos! — Katia 🚀
