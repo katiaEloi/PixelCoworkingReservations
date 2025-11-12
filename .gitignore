@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# --- Pixel Coworking custom ignore ---
+# Entornos y variables privadas
+.env
+*.env
+docker-compose.override.yml
