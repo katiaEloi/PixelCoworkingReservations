@@ -1,66 +1,61 @@
 🚀 Pixel Coworking – Microservicios de Reservas (Spaces + Bookings)
-
 Bienvenida al proyecto completo donde construimos un sistema real de reservas para coworking usando:
 
 🟦 .NET 8 / ASP.NET Core
-
 🐳 Docker & Docker Compose
-
 🗄️ SQL Server en contenedor
-
 🧩 Microservicios
-
 🔄 Comunicación HTTP entre servicios
-
 🧪 Validación de solapamiento de reservas
-
 📘 Swagger
-
 🧱 Arquitectura del Proyecto
 
-Este proyecto está dividido en dos microservicios:
+## ⚙️ Arquitectura del proyecto
 
-pixel-coworking-reservations-starter
-│
-├── src/
-│   ├── SpacesService/     → Servicio que gestiona las salas
-│   └── BookingService/    → Servicio que gestiona reservas
-│
-└── infra/
-    └── docker-compose.yml → Orquestación de servicios
+infra/
+ ├── docker-compose.yml
+src/
+ ├── SpacesService/
+ │    ├── Controllers/
+ │    ├── Data/
+ │    ├── Models/
+ │    └── Program.cs
+ ├── BookingService/
+      ├── Controllers/
+      ├── Data/
+      ├── Dtos/
+      ├── Services/
+      └── Program.cs
 
-🧩 Diagrama de Arquitectura
-                ┌──────────────────────────┐
-                │      ASP.NET Core         │
-                │     SpacesService         │
-                │  (gestión de salas)       │
-                └───────────────┬──────────┘
-                                │ HTTP (8081)
-                                │
-                                ▼
-                      ┌────────────────┐
-                      │   BookingService│
-                      │ (reservas +     │
-                      │ validación      │
-                      └───────┬────────┘
-                              │
-                              ▼
-                ┌───────────────────────────┐
-                │      SQL Server (Docker)   │
-                │  SpacesDb + BookingsDb     │
-                └───────────────────────────┘
+## 🏗️ Diagrama de arquitectura (Docker + Microservicios)
+```
+                 ┌────────────────────────────┐
+                 │        Docker Host         │
+                 │    (pixel-network bridge)  │
+                 └────────────────────────────┘
+                           │
+           ┌──────────────────────────────────────────┐
+           │                                          │
+           ▼                                          ▼
+┌──────────────────────┐                 ┌─────────────────────────┐
+│   SpacesService      │  <──────▶─────  │     BookingService      │
+│  (http://:8081)      │  Validate       │   (http://:8082)       │
+│  Administra espacios │  disponibilidad │  Crea y gestiona        │
+└──────────────────────┘                 │  reservas               │
+           │                             └─────────────────────────┘
+           │                                       │
+           ▼                                       ▼
+        ┌────────────────────────────────────────────────┐
+        │                SQL Server 2022                  │
+        │ Databases:  SpacesDb  &  BookingsDb             │
+        └────────────────────────────────────────────────┘
 
 🏁 Cómo ejecutar el proyecto con Docker
 
 Asegúrate de estar dentro de la carpeta:
-
 infra/
-
-
 Luego ejecuta:
-
 docker compose up -d --build
-
 
 Esto creará:
 
@@ -76,13 +71,9 @@ SQL Server	1433
 Endpoints:
 
 GET /api/Spaces
-
 POST /api/Spaces
-
 PUT /api/Spaces/{id}
-
 DELETE /api/Spaces/{id}
-
 🟩 BookingService
 
 👉 http://localhost:8082/swagger/index.html
@@ -90,9 +81,7 @@ DELETE /api/Spaces/{id}
 Endpoints:
 
 GET /api/Booking
-
 GET /api/Booking/{id}
-
 POST /api/Booking (con validación de solapamiento)
 
 🧪 Ejemplo de petición POST (Booking)
@@ -103,12 +92,10 @@ POST /api/Booking (con validación de solapamiento)
   "end": "2025-11-11T11:00:00"
 }
 
-
 ✔️ Si la sala existe
 ✔️ Si no hay solapamiento
 
 Respuesta:
-
 {
   "message": "Reserva creada",
   "name": "Sala Reuniones Pixel"
@@ -146,24 +133,19 @@ Un resumen claro para recordar siempre:
 🔵 git status
 
 Muestra el estado de tu repositorio:
-
 qué archivos cambiaron
-
 qué está listo para commit
-
 si tu rama está ahead/behind del remoto
 
 🟢 git add
 
 Añade cambios al área de preparación (staging):
-
 git add .
 git add README.md
 
 🟣 git commit
 
 Guarda los cambios en tu rama local:
-
 git commit -m "Mensaje del commit"
 
 🟠 git push
@@ -218,7 +200,5 @@ Ingeniera de Informática – Desarrollo .NET & Microservicios
 Proyecto: Pixel Coworking – Sistema de reservas con Docker y microservicios
 
 🌐 Pixel-Coworking (Alicante)
-
 💻 Stack principal: .NET, C#, ASP.NET Core, SQL Server, Docker
-
 ✉️ www.linkedin.com/in/katiaeloianalista10
