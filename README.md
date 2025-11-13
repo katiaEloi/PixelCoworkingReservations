@@ -114,19 +114,6 @@ docker compose down
   "message": "Reserva creada",
   "name": "Sala Reuniones Pixel"
 }
-```
-
----
-
-## 🔒 Configuración de variables (.env)
-```
-SA_PASSWORD=Your_strong_password123!
-ASPNETCORE_ENVIRONMENT=Production
-```
-
-> 📁 El archivo `.env` está **excluido del repositorio** mediante `.gitignore` para proteger credenciales.
-
----
 
 ## 🧰 Tecnologías utilizadas
 - .NET 8 (C#)
