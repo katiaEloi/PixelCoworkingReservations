@@ -13,19 +13,19 @@ Bienvenida al proyecto completo donde construimos un sistema real de reservas pa
 ## ⚙️ Arquitectura del proyecto
 
 infra/
- ├── docker-compose.yml
+├── docker-compose.yml
 src/
- ├── SpacesService/
- │    ├── Controllers/
- │    ├── Data/
- │    ├── Models/
- │    └── Program.cs
- ├── BookingService/
-      ├── Controllers/
-      ├── Data/
-      ├── Dtos/
-      ├── Services/
-      └── Program.cs
+├── SpacesService/
+│ ├── Controllers/
+│ ├── Data/
+│ ├── Models/
+│ └── Program.cs
+├── BookingService/
+├── Controllers/
+├── Data/
+├── Dtos/
+├── Services/
+└── Program.cs
 
 ## 🏗️ Diagrama de arquitectura (Docker + Microservicios)
 ```
