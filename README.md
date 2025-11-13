@@ -1,4 +1,5 @@
-🚀 Pixel Coworking – Microservicios de Reservas (Spaces + Bookings)
+##  Pixel Coworking – Microservicios de Reservas (Spaces + Bookings)
+```
 Bienvenida al proyecto completo donde construimos un sistema real de reservas para coworking usando:
 
 🟦 .NET 8 / ASP.NET Core
@@ -28,7 +29,7 @@ src/
       └── Program.cs
 
 ## 🏗️ Diagrama de arquitectura (Docker + Microservicios)
-```
+
                  ┌────────────────────────────┐
                  │        Docker Host         │
                  │    (pixel-network bridge)  │
