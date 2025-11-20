@@ -1,35 +1,30 @@
+# 🇪🇸 Pixel-Coworking Reservations Starter
 
-## Pixel Coworking – Microservicios de Reservas (Spaces + Bookings)
-Bienvenida al proyecto completo donde construimos un sistema real de reservas para coworking usando:
+## 🧩 Descripción general  
+Proyecto de ejemplo desarrollado en **.NET 8** con **microservicios**, contenedores **Docker** y base de datos **SQL Server 2022**.  
+Simula un sistema de reservas para *Pixel-Coworking Alicante*, con gestión de espacios y validaciones de disponibilidad.
 
-🟦 .NET 8 / ASP.NET Core
-🐳 Docker & Docker Compose
-🗄️ SQL Server en contenedor
-🧩 Microservicios
-🔄 Comunicación HTTP entre servicios
-🧪 Validación de solapamiento de reservas
-📘 Swagger
-🧱 Arquitectura del Proyecto
+---
 
 ## ⚙️ Arquitectura del proyecto
-
+```
 infra/
-├── docker-compose.yml
+ ├── docker-compose.yml
 src/
-├── SpacesService/
-│ ├── Controllers/
-│ ├── Data/
-│ ├── Models/
-│ └── Program.cs
-├── BookingService/
-├── Controllers/
-├── Data/
-├── Dtos/
-├── Services/
-└── Program.cs
+ ├── SpacesService/
+ │    ├── Controllers/
+ │    ├── Data/
+ │    ├── Models/
+ │    └── Program.cs
+ ├── BookingService/
+      ├── Controllers/
+      ├── Data/
+      ├── Dtos/
+      ├── Services/
+      └── Program.cs
+```
 
-
-##🏗️ Diagrama de arquitectura (Docker + Microservicios)
+## 🏗️ Diagrama de arquitectura (Docker + Microservicios)
 ```
                  ┌────────────────────────────┐
                  │        Docker Host         │
@@ -41,15 +36,15 @@ src/
            ▼                                          ▼
 ┌──────────────────────┐                 ┌─────────────────────────┐
 │   SpacesService      │  <──────▶─────  │     BookingService      │
-│  (http://:8081)      │  Validate       │   (http://:8082)       │
+│  (http://:8081)      │  Validate       │   (http://:8082)        │
 │  Administra espacios │  disponibilidad │  Crea y gestiona        │
 └──────────────────────┘                 │  reservas               │
            │                             └─────────────────────────┘
            │                                       │
            ▼                                       ▼
         ┌────────────────────────────────────────────────┐
-        │                SQL Server 2022                  │
-        │ Databases:  SpacesDb  &  BookingsDb             │
+        │                SQL Server 2022                 │
+        │ Databases:  SpacesDb  &  BookingsDb            │
         └────────────────────────────────────────────────┘
 
 🏁 Cómo ejecutar el proyecto con Docker
