@@ -3,7 +3,6 @@ using BookingService.Models;
 using Microsoft.AspNetCore.Mvc;
 using BookingService.Services;
 using BookingService.Dto;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookingService.Controllers{
@@ -73,5 +72,25 @@ namespace BookingService.Controllers{
 
             return Ok(booking);
         }
+
+        //Actualiza el estado de una reserva: Pending → Confirmed → Cancelled.
+        [HttpPut("{id}/status")]
+        [ProducesResponseType(typeof(Booking),200)]
+        public async Task<IActionResult> UpdateBookingStatus(int id, [FromBody] UpdateBookingStatusDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var booking = await _context.Bookings.FindAsync(id);
+            if (booking == null) return NotFound($"Booking with id = {id}. Not found.");
+
+            booking.Status = dto.Status.ToString();
+            booking.UpdatedAt = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Status update successfully", status = booking.Status });
+        }
+
     }
 }

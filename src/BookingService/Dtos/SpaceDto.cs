@@ -1,5 +1,8 @@
-﻿namespace BookingService.Dto
+﻿using BookingService.Data;
+
+namespace BookingService.Dto
 {
+    
     public class SpaceDto
     {
         public int Id { get; set; }
@@ -12,5 +15,10 @@
     {
         public string Message { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+    }
+
+    public class UpdateBookingStatusDto
+    {
+        public BookingStatus Status { get; set; }
     }
 }
